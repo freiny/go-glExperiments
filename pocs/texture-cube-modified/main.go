@@ -10,6 +10,7 @@ import (
 	"go/build"
 	"image"
 	"image/color"
+	"image/draw"
 	_ "image/png"
 	"log"
 	"math/rand"
@@ -216,6 +217,8 @@ func newTexture(file string) (uint32, error) {
 		return 0, fmt.Errorf("unsupported stride")
 	}
 
+	draw.Draw(rgba, rgba.Bounds(), img, image.Point{0, 0}, draw.Src)
+
 	for x := 0; x < 128; x++ {
 		for y := 0; y < 128; y++ {
 			r := uint8(rand.Intn(255))
@@ -224,9 +227,6 @@ func newTexture(file string) (uint32, error) {
 			rgba.Set(x, y, color.RGBA{r, g, b, 128})
 		}
 	}
-	fmt.Println("FOUND RGBA...")
-
-	// draw.Draw(rgba, rgba.Bounds(), img, image.Point{0, 0}, draw.Src)
 
 	var texture uint32
 	gl.GenTextures(1, &texture)
