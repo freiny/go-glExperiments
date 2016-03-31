@@ -1,0 +1,8 @@
+{
+    "commands": [
+        "*.go : pkill -f main",
+        "*.go : rm {absPath}main",
+        "*.go : go build {absPath}main.go",
+        "*.go : {absPath}main"
+    ]
+}
